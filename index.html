@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emmanuel Ifeoluwa Ademuyiwa — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --blue-dark: #0f172a;
+      --blue-mid: #1e3a8a;
+      --blue: #1d4ed8;
+      --blue-light: #3b82f6;
+      --blue-glow: #60a5fa;
+      --blue-pale: #dbeafe;
+      --accent: #f59e0b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-bg: rgba(30, 58, 138, 0.12);
+      --card-border: rgba(59, 130, 246, 0.2);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--blue-dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND ── */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+      opacity: 0.25;
+    }
+
+    .orb1 {
+      width: 600px;
+      height: 600px;
+      background: #1d4ed8;
+      top: -200px;
+      right: -200px;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+
+    .orb2 {
+      width: 500px;
+      height: 500px;
+      background: #7c3aed;
+      bottom: -200px;
+      left: -200px;
+      animation: drift 15s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes drift {
+      from {
+        transform: translate(0, 0);
+      }
+
+      to {
+        transform: translate(40px, 30px);
+      }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: var(--blue-glow);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue-glow);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--blue-glow);
+      letter-spacing: 0.15em;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      padding: 0.4rem 1.2rem;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero h1 span {
+      color: var(--blue-glow);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.6;
+      margin: 1.2rem auto 2.5rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn {
+      padding: 0.85rem 2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(29, 78, 216, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blue-glow);
+      border: 1.5px solid var(--blue-glow);
+    }
+
+    .btn-outline:hover {
+      background: rgba(96, 165, 250, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      color: var(--blue-glow);
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.4rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--blue-glow);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #fff;
+      margin-bottom: 0.5rem;
+      line-height: 1.1;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 2px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── EXPERIENCE ── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--blue), transparent);
+    }
+
+    .job {
+      position: relative;
+      margin-bottom: 2.5rem;
+      padding-left: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.75rem 1.75rem 1.75rem 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .job:hover {
+      border-color: var(--blue-light);
+      transform: translateX(4px);
+    }
+
+    .job::before {
+      content: '';
+      position: absolute;
+      left: -2.55rem;
+      top: 1.75rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      box-shadow: 0 0 12px var(--blue-light);
+    }
+
+    .job-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .job-role {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+
+    .job-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: rgba(245, 158, 11, 0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .job-company {
+      color: var(--blue-glow);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .job-bullets {
+      list-style: none;
+    }
+
+    .job-bullets li {
+      position: relative;
+      padding-left: 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 0.3rem;
+    }
+
+    .job-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--blue-light);
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .skill-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.25s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--blue-light);
+      transform: translateY(-4px);
+    }
+
+    .skill-cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      background: rgba(29, 78, 216, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: var(--blue-pale);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.2s;
+    }
+
+    .tag:hover {
+      background: rgba(29, 78, 216, 0.35);
+      border-color: var(--blue-light);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(29, 78, 216, 0.1) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .project-card:hover {
+      border-color: var(--blue-light);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-card:hover::after {
+      opacity: 1;
+    }
+
+    .project-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .project-link {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--blue-glow);
+      border: 1px solid var(--card-border);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .project-link:hover {
+      background: rgba(96, 165, 250, 0.1);
+      border-color: var(--blue-glow);
+    }
+
+    /* ── CERTS ── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .cert-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.25s;
+    }
+
+    .cert-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .cert-icon {
+      font-size: 1.75rem;
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+
+    .cert-issuer {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      max-width: 600px;
+    }
+
+    .edu-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .edu-degree {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-school {
+      color: var(--blue-glow);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-status {
+      display: inline-block;
+      font-size: 0.73rem;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 999px;
+      padding: 0.2rem 0.75rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .contact-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.8rem 1.25rem;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: all 0.25s;
+    }
+
+    .contact-chip:hover {
+      border-color: var(--blue-light);
+      color: var(--blue-glow);
+      transform: translateY(-2px);
+    }
+
+    .contact-chip span {
+      font-size: 1.1rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        padding: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .hero-stats {
+        gap: 1.5rem;
+      }
+
+      .edu-card {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">EIA</div>
+    <ul class="nav-links">
+      <li><a href="#experience">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1>Emmanuel <span>Ademuyiwa</span></h1>
+    <p class="hero-sub">Full-Stack Developer · Data Analyst · IT Specialist building impactful software for schools,
+      businesses, and communities across Nigeria.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">300+</span><span class="stat-label">Students Trained</span></div>
+      <div class="stat"><span class="stat-num">20+</span><span class="stat-label">Schools Served</span></div>
+      <div class="stat"><span class="stat-num">5</span><span class="stat-label">Businesses Automated</span></div>
+      <div class="stat"><span class="stat-num">4</span><span class="stat-label">Cisco Certifications</span></div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="reveal">
+      <div class="section-label">// career</div>
+      <h2 class="section-title">Work Experience</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="timeline">
+      <div class="job reveal">
+        <div class="job-meta">
+          <span class="job-role">Lead Trainer & Software Developer</span>
+          <span class="job-date">Jan 2025 – Present</span>
+        </div>
+        <div class="job-company">Impact Digital Academy — Ogun State, Nigeria</div>
+        <ul class="job-bullets">
+          <li>Trained 300+ secondary school students in coding, programming, and digital skills.</li>
+          <li>Developed the full content curriculum for the academy's training programmes.</li>
+          <li>Led the development team in building business automation software for 5 retail shops.</li>
+          <li>Served as Proctor Officer for the Computer-Based WASSCE 2026 examination.</li>
+        </ul>
+      </div>
+      <div class="job reveal">
+        <div class="job-meta">
+          <span class="job-role">IT Admin & Security Tech Officer</span>
+          <span class="job-date">Dec 2024 – Present</span>
+        </div>
+        <div class="job-company">Faith Tabernacle Security Service Unit — Nigeria (Volunteer)</div>
+        <ul class="job-bullets">
+          <li>Piloted security drones for surveillance and perimeter monitoring.</li>
+          <li>Built and manages the FTSSU Progressive Web App (PWA) on Netlify.</li>
+          <li>Administers the unit's security member database and QR-based attendance records.</li>
+        </ul>
+      </div>
+      <div class="job reveal">
+        <div class="job-meta">
+          <span class="job-role">Sales & Data Manager</span>
+          <span class="job-date">Nov 2016 – Apr 2019</span>
+        </div>
+        <div class="job-company">Lord's Mint — Itori, Ogun State</div>
+        <ul class="job-bullets">
+          <li>Managed sales pipelines and data records with accuracy and timely reporting.</li>
+          <li>Streamlined data entry and reporting workflows to improve operational efficiency.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <div class="section-label">// expertise</div>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-cat">Languages</div>
+        <div class="skill-tags">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+          <span class="tag">TypeScript</span><span class="tag">Python</span><span class="tag">Dart</span>
+          <span class="tag">SQL</span><span class="tag">C#</span><span class="tag">C++</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Mobile Development</div>
+        <div class="skill-tags">
+          <span class="tag">Flutter</span><span class="tag">React Native</span><span class="tag">Kotlin</span>
+          <span class="tag">Android</span><span class="tag">PWA</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Backend & APIs</div>
+        <div class="skill-tags">
+          <span class="tag">Node.js</span><span class="tag">RESTful APIs</span><span class="tag">Firebase</span>
+          <span class="tag">Next.js</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Databases</div>
+        <div class="skill-tags">
+          <span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">MongoDB</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Tools & Workflow</div>
+        <div class="skill-tags">
+          <span class="tag">Git</span><span class="tag">Jira</span><span class="tag">Netlify</span>
+          <span class="tag">VS Code</span><span class="tag">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-cat">Other</div>
+        <div class="skill-tags">
+          <span class="tag">Data Analysis</span><span class="tag">Curriculum Design</span>
+          <span class="tag">Drone Operations</span><span class="tag">Tech Training</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <div class="section-label">// portfolio</div>
+      <h2 class="section-title">Notable Projects</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-icon">🖥️</div>
+        <div class="project-name">Offline CBT System</div>
+        <div class="project-desc">Computer-Based Testing platform deployed across 20+ schools. Operates fully offline
+          with exam scheduling, auto-marking, and comprehensive result management.</div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-icon">🏪</div>
+        <div class="project-name">POS Automation & Payment System</div>
+        <div class="project-desc">Business automation and point-of-sale software deployed across 5 retail shops,
+          streamlining transactions and eliminating manual billing errors.</div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-icon">🛡️</div>
+        <div class="project-name">FTSSU Mobile Web App</div>
+        <div class="project-desc">Progressive Web App for Faith Tabernacle Security Unit — member management, QR
+          attendance tracking, announcements, and role-based dashboards.</div>
+        <div class="project-links">
+          <a href="https://ftssu-web.netlify.app" target="_blank" class="project-link">↗ Live App</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-icon">🌐</div>
+        <div class="project-name">Educational & Institution Websites</div>
+        <div class="project-desc">Designed and deployed professional websites for multiple schools and institutions
+          across Nigeria.</div>
+        <div class="project-links">
+          <a href="https://impactdigitalacademy.com.ng" target="_blank" class="project-link">Impact Digital Academy</a>
+          <a href="https://joeajaero.org.ng" target="_blank" class="project-link">Joe Ajaero</a>
+          <a href="https://greatoptimist.acad.com.ng" target="_blank" class="project-link">Great Optimist</a>
+          <a href="https://topfolex.acad.com.ng" target="_blank" class="project-link">Topfolex</a>
+          <a href="https://mightyschoolforvalours.com" target="_blank" class="project-link">Mighty School for Valours</a>
+          <a href="https://gloriousscholars.acad.com.ng" target="_blank" class="project-link">Glorious Scholars Academy</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="reveal">
+      <div class="section-label">// credentials</div>
+      <h2 class="section-title">Certifications</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-icon">🐍</div>
+        <div>
+          <div class="cert-name">Python Essentials I</div>
+          <div class="cert-issuer">Cisco Networking Academy</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">🐍</div>
+        <div>
+          <div class="cert-name">Python Essentials II</div>
+          <div class="cert-issuer">Cisco Networking Academy</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">💻</div>
+        <div>
+          <div class="cert-name">IT Essentials</div>
+          <div class="cert-issuer">Cisco Networking Academy</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">⚙️</div>
+        <div>
+          <div class="cert-name">C++ Programming</div>
+          <div class="cert-issuer">Cisco Networking Academy</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="reveal">
+      <div class="section-label">// academic</div>
+      <h2 class="section-title">Education</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-degree">BSc Software Development</div>
+        <div class="edu-school">Brigham Young University – Idaho (BYU-Idaho)</div>
+        <span class="edu-status">Currently Enrolled</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <div class="section-label">// connect</div>
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="section-divider"></div>
+      <p style="color:var(--text-muted); max-width:500px; line-height:1.7;">
+        Open to freelance projects, consulting, collaborations, and full-time roles. Let's build something impactful
+        together.
+      </p>
+    </div>
+    <div class="contact-links reveal">
+      <a href="mailto:samadeimmanuel@yahoo.com" class="contact-chip"><span>✉️</span> samadeimmanuel@yahoo.com</a>
+      <a href="tel:+2349035448295" class="contact-chip"><span>📞</span> 09035448295</a>
+      <a href="https://linkedin.com/in/Emmanuel-ademuyiwa" target="_blank" class="contact-chip"><span>💼</span>
+        LinkedIn</a>
+      <a href="https://github.com/innio31" target="_blank" class="contact-chip"><span>⌨️</span> GitHub</a>
+      <a href="https://acad.com.ng" target="_blank" class="contact-chip"><span>🌐</span> acad.com.ng</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Emmanuel Ifeoluwa Ademuyiwa · Built with purpose · Ota, Ogun State, Nigeria</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+
+</html>
