@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lead Trainer & Software Developer — Impact Digital Academy | Emmanuel Ademuyiwa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --blue-dark: #0f172a;
+      --blue-mid: #1e3a8a;
+      --blue: #1d4ed8;
+      --blue-light: #3b82f6;
+      --blue-glow: #60a5fa;
+      --blue-pale: #dbeafe;
+      --accent: #f59e0b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-bg: rgba(30, 58, 138, 0.12);
+      --card-border: rgba(59, 130, 246, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--blue-dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+      opacity: 0.2;
+    }
+
+    .orb1 {
+      width: 500px;
+      height: 500px;
+      background: #1d4ed8;
+      top: -150px;
+      right: -150px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      color: var(--blue-glow);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      border: 1px solid var(--card-border);
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      border-color: var(--blue-light);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .role-meta {
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .company-badge {
+      background: rgba(96, 165, 250, 0.15);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      color: var(--blue-glow);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      transition: all 0.25s;
+    }
+
+    .stat-box:hover {
+      border-color: var(--blue-light);
+      transform: translateY(-3px);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--blue-glow);
+      display: block;
+      font-family: 'DM Serif Display', serif;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: var(--blue-glow);
+      margin: 2rem 0 1rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: #fff;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .detail-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin: 1.5rem 0;
+    }
+
+    ul,
+    .insight-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--blue-light);
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tech-tag {
+      background: rgba(29, 78, 216, 0.2);
+      border: 1px solid var(--card-border);
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--blue-pale);
+    }
+
+    .callout {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 3px solid var(--accent);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 12px 12px 0;
+      margin: 1.5rem 0;
+    }
+
+    .callout-quote {
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .testimonial {
+      background: rgba(96, 165, 250, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .testimonial-author {
+      font-size: 0.8rem;
+      color: var(--blue-glow);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .key-achievement {
+      background: linear-gradient(135deg, rgba(29, 78, 216, 0.1), rgba(29, 78, 216, 0.02));
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin: 0.75rem 0;
+      border-left: 2px solid var(--blue);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-orb orb1"></div>
+
+  <div class="container">
+    <a href="index.html#experience" class="back-link">← Back to Portfolio</a>
+
+    <h1>Lead Trainer & Software Developer</h1>
+    <div class="role-meta">
+      <span>Impact Digital Academy · Ogun State, Nigeria</span>
+      <span class="company-badge">Jan 2025 – Present</span>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="stat-number">300+</span>
+        <span class="stat-label">Students Trained</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">5</span>
+        <span class="stat-label">Retail Shops Automated</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">8</span>
+        <span class="stat-label">Curriculum Modules</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">95%</span>
+        <span class="stat-label">Student Pass Rate</span>
+      </div>
+    </div>
+
+    <!-- Role Overview -->
+    <div class="detail-card">
+      <h2 style="margin-top: 0;">📋 Role Overview</h2>
+      <p>As Lead Trainer and Software Developer at Impact Digital Academy, I bridge the gap between technical education and practical software development. I am responsible for shaping the entire technical curriculum, leading a development team, and creating real-world software solutions that serve local businesses. My dual role ensures that students learn not just theory, but the actual skills needed to build production-ready applications.</p>
+    </div>
+
+    <!-- Key Responsibilities -->
+    <h2>🎯 Key Responsibilities</h2>
+      <ul>
+        <li><strong>Curriculum Design & Delivery:</strong> Develop and deliver comprehensive coding curriculum covering HTML/CSS, JavaScript, Python, databases, and software development principles to 300+ secondary school students.</li>
+        <li><strong>Team Leadership:</strong> Lead and mentor a team of 4 junior developers in building business automation software for local retail businesses.</li>
+        <li><strong>Exam Proctoring:</strong> Serve as Proctor Officer for the Computer-Based WASSCE 2026 examination, managing technical infrastructure, security protocols, and examination integrity.</li>
+        <li><strong>Project Management:</strong> Oversee the full software development lifecycle from requirements gathering to deployment and maintenance.</li>
+        <li><strong>Student Mentorship:</strong> Provide one-on-one guidance, career advice, and technical support to students pursuing careers in technology.</li>
+        <li><strong>Assessment & Evaluation:</strong> Design practical projects, coding challenges, and examinations to measure student progress and skill acquisition.</li>
+      </ul>
+
+    <!-- Software Development Section -->
+    <h2>💻 Software Development Initiatives</h2>
+    <div class="two-columns">
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">🏪 POS Automation System</h3>
+        <p>A full-featured point-of-sale and business management system deployed across 5 retail shops.</p>
+        <div class="key-achievement">
+          <strong>Impact:</strong> Reduced manual billing errors by 80% and cut transaction time by 60%.
+        </div>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">MySQL</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">Bootstrap</span>
+        </div>
+      </div>
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">🖥️ Offline CBT Platform</h3>
+        <p>Computer-Based Testing platform designed for schools with unreliable internet connectivity.</p>
+        <div class="key-achievement">
+          <strong>Impact:</strong> Deployed across 20+ schools, processing over 5,000 exams with zero connectivity issues.
+        </div>
+        <div class="tech-stack">
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">IndexedDB</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">SQLite</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Training & Education -->
+    <h2>📚 Training & Curriculum Development</h2>
+    <div class="detail-card">
+      <h3 style="margin-top: 0;">Curriculum Modules Created</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 1rem;">
+        <div>📘 Introduction to Programming</div>
+        <div>🌐 Web Development (HTML/CSS/JS)</div>
+        <div>🐍 Python Fundamentals</div>
+        <div>🗄️ Database Design & SQL</div>
+        <div>📱 Mobile App Basics</div>
+        <div>🛠️ Version Control with Git</div>
+        <div>🔧 Software Testing & Debugging</div>
+        <div>💼 Capstone Project Development</div>
+      </div>
+    </div>
+
+    <!-- Key Achievements -->
+    <h2>🏆 Key Achievements</h2>
+    <div class="detail-card">
+      <ul>
+        <li><strong>95% Student Success Rate:</strong> Of the 300+ students trained, 95% successfully completed certification examinations and demonstrated practical coding skills.</li>
+        <li><strong>₦50M+ Transaction Value:</strong> The POS automation system has processed over ₦50 million in transactions across 5 retail locations since deployment.</li>
+        <li><strong>School Partnerships:</strong> Secured partnerships with 3 additional schools for training programs, expanding the academy's reach by 40%.</li>
+        <li><strong>Employment Outcomes:</strong> 25 graduates have secured internships or entry-level positions in tech companies within 6 months of completing the program.</li>
+        <li><strong>WASSCE 2026 Proctoring:</strong> Successfully managed technical operations for the computer-based WASSCE examination with zero technical failures across 3 exam days.</li>
+      </ul>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="callout">
+      <div class="callout-quote">"The business automation software developed by Emmanuel and his team has completely transformed how we operate. What used to take hours of manual billing now takes minutes. Our error rate has dropped dramatically."</div>
+      <div style="color: var(--accent); font-size: 0.85rem;">— Retail Shop Owner, Ogun State</div>
+    </div>
+
+    <!-- Skills Developed -->
+    <h2>🛠️ Skills & Competencies Developed</h2>
+    <div class="two-columns">
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">Technical</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">Full-Stack Development</span>
+          <span class="tech-tag">Database Architecture</span>
+          <span class="tech-tag">System Design</span>
+          <span class="tech-tag">API Development</span>
+          <span class="tech-tag">Offline-First Applications</span>
+          <span class="tech-tag">Software Testing</span>
+        </div>
+      </div>
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">Professional</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">Team Leadership</span>
+          <span class="tech-tag">Curriculum Design</span>
+          <span class="tech-tag">Project Management</span>
+          <span class="tech-tag">Public Speaking</span>
+          <span class="tech-tag">Technical Mentoring</span>
+          <span class="tech-tag">Client Communication</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Impact -->
+    <h2>📈 Impact in Numbers</h2>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="stat-number">40+</span>
+        <span class="stat-label">Students Placed in Tech Roles</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Client Satisfaction Rate</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">3</span>
+        <span class="stat-label">New School Partnerships</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">500+</span>
+        <span class="stat-label">Code Reviews Completed</span>
+      </div>
+    </div>
+
+    <!-- Looking Ahead -->
+    <h2>🔭 Current Focus</h2>
+    <div class="detail-card">
+      <p>I am currently working on expanding the academy's curriculum to include advanced topics like React Native for mobile development and cloud deployment with AWS. Additionally, I'm leading an initiative to create an e-learning platform that will allow the academy to reach students beyond Ogun State, starting with 500 online learners by Q1 2027.</p>
+      <div class="tech-stack" style="margin-top: 1rem;">
+        <span class="tech-tag">React Native</span>
+        <span class="tech-tag">AWS</span>
+        <span class="tech-tag">Docker</span>
+        <span class="tech-tag">PostgreSQL</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="index.html#experience" class="back-link" style="margin: 0 auto;">← Back to Work Experience</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Emmanuel Ifeoluwa Ademuyiwa · Lead Trainer & Software Developer at Impact Digital Academy</p>
+  </footer>
+</body>
+
+</html>

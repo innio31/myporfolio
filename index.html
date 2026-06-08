@@ -382,6 +382,26 @@
       color: var(--blue-light);
     }
 
+    /* "See more" button styles */
+    .see-more-btn {
+      margin-top: 1rem;
+      display: inline-block;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 30px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--blue-glow);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .see-more-btn:hover {
+      border-color: var(--blue-light);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
     /* ── SKILLS ── */
     .skills-grid {
       display: grid;
@@ -494,13 +514,13 @@
 
     .project-links {
       display: flex;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
       flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
     }
 
     .project-link {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-family: 'JetBrains Mono', monospace;
       color: var(--blue-glow);
       border: 1px solid var(--card-border);
@@ -508,6 +528,8 @@
       border-radius: 4px;
       text-decoration: none;
       transition: all 0.2s;
+      background: transparent;
+      cursor: pointer;
     }
 
     .project-link:hover {
@@ -515,44 +537,61 @@
       border-color: var(--blue-glow);
     }
 
-    /* ── CERTS ── */
+    /* ── CERTIFICATIONS - Education card style ── */
     .certs-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
     }
 
     .cert-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem;
+      border-radius: 14px;
+      padding: 1.5rem 2rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.5rem;
       transition: all 0.25s;
+      text-decoration: none;
     }
 
     .cert-card:hover {
       border-color: var(--accent);
-      transform: translateY(-3px);
+      transform: translateY(-4px);
     }
 
     .cert-icon {
-      font-size: 1.75rem;
+      font-size: 2.5rem;
       flex-shrink: 0;
     }
 
+    .cert-info {
+      flex: 1;
+    }
+
     .cert-name {
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 700;
+      font-size: 1rem;
       color: #fff;
+      margin-bottom: 0.25rem;
     }
 
     .cert-issuer {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-top: 0.25rem;
+    }
+
+    .cert-badge {
+      font-size: 1.2rem;
+      color: var(--blue-glow);
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+    }
+
+    .cert-card:hover .cert-badge {
+      opacity: 1;
     }
 
     /* ── EDUCATION ── */
@@ -595,6 +634,89 @@
       border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: 999px;
       padding: 0.2rem 0.75rem;
+    }
+
+    /* ── PERSONAL NOTES PREVIEW ── */
+    .notes-intro {
+      color: var(--text-muted);
+      max-width: 620px;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .note-preview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.25s;
+    }
+
+    .note-preview-card:hover {
+      border-color: var(--blue-light);
+      transform: translateY(-3px);
+    }
+
+    .note-category {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 999px;
+      padding: 0.2rem 0.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .note-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .note-title-preview {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .note-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .note-preview-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .read-more-btn {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 30px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--blue-glow);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .read-more-btn:hover {
+      border-color: var(--blue-light);
+      background: rgba(59, 130, 246, 0.1);
     }
 
     /* ── CONTACT ── */
@@ -680,6 +802,11 @@
       .edu-card {
         flex-direction: column;
       }
+
+      .cert-card {
+        flex-direction: column;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -697,6 +824,8 @@
       <li><a href="#experience">Work</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#notes">Notes</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -739,6 +868,7 @@
           <li>Led the development team in building business automation software for 5 retail shops.</li>
           <li>Served as Proctor Officer for the Computer-Based WASSCE 2026 examination.</li>
         </ul>
+        <a href="job-impact-digital.html" class="see-more-btn">📄 See more</a>
       </div>
       <div class="job reveal">
         <div class="job-meta">
@@ -751,6 +881,7 @@
           <li>Built and manages the FTSSU Progressive Web App (PWA) on Netlify.</li>
           <li>Administers the unit's security member database and QR-based attendance records.</li>
         </ul>
+        <a href="job-ftssu.html" class="see-more-btn">📄 See more</a>
       </div>
       <div class="job reveal">
         <div class="job-meta">
@@ -762,6 +893,7 @@
           <li>Managed sales pipelines and data records with accuracy and timely reporting.</li>
           <li>Streamlined data entry and reporting workflows to improve operational efficiency.</li>
         </ul>
+        <a href="job-lords-mint.html" class="see-more-btn">📄 See more</a>
       </div>
     </div>
   </section>
@@ -854,12 +986,17 @@
         <div class="project-desc">Designed and deployed professional websites for multiple schools and institutions
           across Nigeria.</div>
         <div class="project-links">
-          <a href="https://impactdigitalacademy.com.ng" target="_blank" class="project-link">Impact Digital Academy</a>
-          <a href="https://joeajaero.org.ng" target="_blank" class="project-link">Joe Ajaero</a>
-          <a href="https://greatoptimist.acad.com.ng" target="_blank" class="project-link">Great Optimist</a>
-          <a href="https://topfolex.acad.com.ng" target="_blank" class="project-link">Topfolex</a>
-          <a href="https://mightyschoolforvalours.com" target="_blank" class="project-link">Mighty School for Valours</a>
-          <a href="https://gloriousscholars.acad.com.ng" target="_blank" class="project-link">Glorious Scholars Academy</a>
+          <button class="project-link" id="viewWebsitesBtn">📂 View all websites</button>
+        </div>
+        <div id="websitesList" style="display: none; margin-top: 1rem;">
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <a href="https://impactdigitalacademy.com.ng" target="_blank" class="project-link">Impact Digital Academy</a>
+            <a href="https://joeajaero.org.ng" target="_blank" class="project-link">Joe Ajaero</a>
+            <a href="https://greatoptimist.acad.com.ng" target="_blank" class="project-link">Great Optimist</a>
+            <a href="https://topfolex.acad.com.ng" target="_blank" class="project-link">Topfolex</a>
+            <a href="https://mightyschoolforvalours.com" target="_blank" class="project-link">Mighty School for Valours</a>
+            <a href="https://gloriousscholars.acad.com.ng" target="_blank" class="project-link">Glorious Scholars Academy</a>
+          </div>
         </div>
       </div>
     </div>
@@ -873,34 +1010,51 @@
       <div class="section-divider"></div>
     </div>
     <div class="certs-grid">
-      <div class="cert-card reveal">
+      <a href="https://www.credly.com/badges/b02b33e4-b943-4611-8813-80f8ebed119b/linked_in_profile" target="_blank" class="cert-card reveal">
         <div class="cert-icon">🐍</div>
-        <div>
+        <div class="cert-info">
           <div class="cert-name">Python Essentials I</div>
           <div class="cert-issuer">Cisco Networking Academy</div>
         </div>
-      </div>
+        <div class="cert-badge">↗</div>
+      </a>
       <div class="cert-card reveal">
         <div class="cert-icon">🐍</div>
-        <div>
+        <div class="cert-info">
           <div class="cert-name">Python Essentials II</div>
           <div class="cert-issuer">Cisco Networking Academy</div>
         </div>
       </div>
       <div class="cert-card reveal">
         <div class="cert-icon">💻</div>
-        <div>
+        <div class="cert-info">
           <div class="cert-name">IT Essentials</div>
           <div class="cert-issuer">Cisco Networking Academy</div>
         </div>
       </div>
       <div class="cert-card reveal">
         <div class="cert-icon">⚙️</div>
-        <div>
+        <div class="cert-info">
           <div class="cert-name">C++ Programming</div>
           <div class="cert-issuer">Cisco Networking Academy</div>
         </div>
       </div>
+      <a href="https://www.linkedin.com/learning/certificates/6a6d360d461336d96acabb1c6eafa8c9b383bdeccc8eaf2ed4a6fc2c7e7b2fd3" target="_blank" class="cert-card reveal">
+        <div class="cert-icon">🎤</div>
+        <div class="cert-info">
+          <div class="cert-name">Communicating with Confidence</div>
+          <div class="cert-issuer">LinkedIn Learning · 2025</div>
+        </div>
+        <div class="cert-badge">↗</div>
+      </a>
+      <a href="https://cert.efset.org/R75yRu" target="_blank" class="cert-card reveal">
+        <div class="cert-icon">🌍</div>
+        <div class="cert-info">
+          <div class="cert-name">EF SET English Certificate</div>
+          <div class="cert-issuer">EF SET · C2 Proficient</div>
+        </div>
+        <div class="cert-badge">↗</div>
+      </a>
     </div>
   </section>
 
@@ -921,6 +1075,30 @@
     </div>
   </section>
 
+  <!-- PERSONAL NOTES - Preview only, no content, links to note-communication.html -->
+  <section id="notes">
+    <div class="reveal">
+      <div class="section-label">// learning in public</div>
+      <h2 class="section-title">Personal Notes</h2>
+      <div class="section-divider"></div>
+    </div>
+    <p class="notes-intro reveal">
+      These are my personal notes from courses, projects, and skills I've worked through. I write them to reinforce
+      my own learning — but I share them here in case they're useful to you too.
+    </p>
+
+    <div class="note-preview-card reveal">
+      <span class="note-category">Communication</span>
+      <div class="note-date">June 2025</div>
+      <div class="note-title-preview">Communicating with Confidence</div>
+      <div class="note-subtitle">A field guide to owning your words, your voice, and the room — by Jeff Ansel (LinkedIn Learning)</div>
+      <div class="note-preview-footer">
+        <a href="https://www.linkedin.com/learning/certificates/6a6d360d461336d96acabb1c6eafa8c9b383bdeccc8eaf2ed4a6fc2c7e7b2fd3" target="_blank" class="project-link">🏅 View Certificate ↗</a>
+        <a href="note-communication.html" class="read-more-btn">📖 Read more →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="reveal">
@@ -935,10 +1113,10 @@
     <div class="contact-links reveal">
       <a href="mailto:samadeimmanuel@yahoo.com" class="contact-chip"><span>✉️</span> samadeimmanuel@yahoo.com</a>
       <a href="tel:+2349035448295" class="contact-chip"><span>📞</span> 09035448295</a>
-      <a href="https://linkedin.com/in/Emmanuel-ademuyiwa" target="_blank" class="contact-chip"><span>💼</span>
-        LinkedIn</a>
+      <a href="https://linkedin.com/in/Emmanuel-ademuyiwa" target="_blank" class="contact-chip"><span>💼</span> LinkedIn</a>
       <a href="https://github.com/innio31" target="_blank" class="contact-chip"><span>⌨️</span> GitHub</a>
       <a href="https://acad.com.ng" target="_blank" class="contact-chip"><span>🌐</span> acad.com.ng</a>
+      <a href="https://impactdigitalacademy.com.ng" target="_blank" class="contact-chip"><span>🎓</span> Impact Digital Academy</a>
     </div>
   </section>
 
@@ -957,6 +1135,21 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // View websites toggle
+    const viewBtn = document.getElementById('viewWebsitesBtn');
+    const websitesList = document.getElementById('websitesList');
+    if (viewBtn && websitesList) {
+      viewBtn.addEventListener('click', function() {
+        if (websitesList.style.display === 'none' || websitesList.style.display === '') {
+          websitesList.style.display = 'block';
+          viewBtn.textContent = '📂 Hide websites';
+        } else {
+          websitesList.style.display = 'none';
+          viewBtn.textContent = '📂 View all websites';
+        }
+      });
+    }
   </script>
 </body>
 

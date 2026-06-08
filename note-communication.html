@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Communicating with Confidence — Full Notes | Emmanuel Ademuyiwa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --blue-dark: #0f172a;
+      --blue-mid: #1e3a8a;
+      --blue: #1d4ed8;
+      --blue-light: #3b82f6;
+      --blue-glow: #60a5fa;
+      --blue-pale: #dbeafe;
+      --accent: #f59e0b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-bg: rgba(30, 58, 138, 0.12);
+      --card-border: rgba(59, 130, 246, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--blue-dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+      opacity: 0.2;
+    }
+
+    .orb1 {
+      width: 500px;
+      height: 500px;
+      background: #3b82f6;
+      top: -150px;
+      right: -150px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      color: var(--blue-glow);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      border: 1px solid var(--card-border);
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      border-color: var(--blue-light);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .note-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    /* Two-column header layout */
+    .note-header {
+      background: rgba(29, 78, 216, 0.18);
+      border-bottom: 1px solid var(--card-border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .note-header-left {
+      flex: 2;
+      min-width: 250px;
+    }
+
+    .note-header-right {
+      flex: 1;
+      min-width: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .note-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .note-category {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 999px;
+      padding: 0.2rem 0.8rem;
+    }
+
+    .note-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .note-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .note-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .note-cert-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--blue-glow);
+      text-decoration: none;
+      border: 1px solid var(--card-border);
+      border-radius: 4px;
+      padding: 0.3rem 0.8rem;
+      transition: all 0.2s;
+      width: fit-content;
+    }
+
+    .note-cert-link:hover {
+      border-color: var(--blue-glow);
+      background: rgba(96, 165, 250, 0.08);
+    }
+
+    /* Certificate Image Styles - Right Side */
+    .certificate-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .certificate-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .certificate-image-wrapper {
+      width: 100%;
+      max-width: 200px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: rgba(0, 0, 0, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .certificate-image-wrapper:hover {
+      border-color: var(--blue-light);
+      transform: translateY(-3px);
+    }
+
+    .certificate-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .certificate-note {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .note-body {
+      padding: 2.5rem;
+    }
+
+    .note-chapters {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .note-chapter {
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .note-chapter:last-child {
+      border-bottom: none;
+    }
+
+    .chapter-toggle {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-align: left;
+      transition: color 0.2s;
+    }
+
+    .chapter-toggle:hover {
+      color: var(--blue-glow);
+    }
+
+    .chapter-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--blue-glow);
+      background: rgba(96, 165, 250, 0.1);
+      border: 1px solid rgba(96, 165, 250, 0.2);
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .chapter-title-text {
+      font-weight: 700;
+      font-size: 1rem;
+      flex: 1;
+    }
+
+    .chapter-arrow {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .chapter-toggle.open .chapter-arrow {
+      transform: rotate(90deg);
+    }
+
+    .chapter-content {
+      display: none;
+      padding-bottom: 1.5rem;
+    }
+
+    .chapter-content.open {
+      display: block;
+    }
+
+    .insight-block {
+      margin-bottom: 1.75rem;
+    }
+
+    .insight-heading {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .insight-heading::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .insight-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .insight-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .insight-list {
+      list-style: none;
+      margin: 0.5rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .insight-list li {
+      padding-left: 1.25rem;
+      position: relative;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .insight-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--blue-light);
+      font-size: 0.75rem;
+    }
+
+    .callout {
+      background: rgba(29, 78, 216, 0.1);
+      border-left: 3px solid var(--blue-light);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      color: var(--text);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    .key-takeaway {
+      background: rgba(245, 158, 11, 0.07);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 10px;
+      padding: 1.5rem 2rem;
+      margin-top: 2rem;
+    }
+
+    .key-takeaway-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .key-takeaway p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .key-takeaway p+p {
+      margin-top: 0.75rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem 1.25rem;
+      }
+      .note-header {
+        flex-direction: column;
+        padding: 1.5rem;
+      }
+      .note-header-right {
+        align-items: flex-start;
+      }
+      .certificate-image-wrapper {
+        max-width: 150px;
+      }
+      .note-body {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-orb orb1"></div>
+
+  <div class="container">
+    <a href="index.html#notes" class="back-link">← Back to Personal Notes</a>
+
+    <div class="note-card">
+      <div class="note-header">
+        <!-- Left Side: Note Information -->
+        <div class="note-header-left">
+          <div class="note-meta-row">
+            <span class="note-category">Communication</span>
+            <span class="note-date">June 2025</span>
+          </div>
+          <div class="note-title">Communicating with Confidence</div>
+          <div class="note-subtitle">A field guide to owning your words, your voice, and the room — by Jeff Ansel (LinkedIn Learning)</div>
+          <a href="https://www.linkedin.com/learning/certificates/6a6d360d461336d96acabb1c6eafa8c9b383bdeccc8eaf2ed4a6fc2c7e7b2fd3" target="_blank" class="note-cert-link">🔗 View on LinkedIn ↗</a>
+        </div>
+
+        <!-- Right Side: Certificate Image -->
+        <div class="note-header-right">
+          <div class="certificate-container">
+            <div class="certificate-label">Official Certificate</div>
+            <div class="certificate-image-wrapper">
+              <img 
+                src="images/communication-certificate.png" 
+                alt="Communicating with Confidence Certificate" 
+                class="certificate-image"
+                onerror="this.style.display='none'; this.parentElement.parentElement.querySelector('.certificate-fallback').style.display='flex';"
+              />
+              <div class="certificate-fallback" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 1rem; text-align: center;">
+                <span style="font-size: 2rem; opacity: 0.5;">📜</span>
+                <span style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem;">Certificate Image</span>
+                <span style="font-size: 0.6rem; color: var(--text-muted);">Place in /images/communication-certificate.jpg</span>
+              </div>
+            </div>
+            <div class="certificate-note">LinkedIn Learning · 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-body">
+        <div class="note-chapters">
+
+          <!-- CHAPTER 1 -->
+          <div class="note-chapter">
+            <button class="chapter-toggle open" onclick="toggleChapter(this)">
+              <span class="chapter-num">01</span>
+              <span class="chapter-title-text">Be a Better Communicator</span>
+              <span class="chapter-arrow">▶</span>
+            </button>
+            <div class="chapter-content open">
+              <div class="insight-block">
+                <div class="insight-heading">What makes a great speaker?</div>
+                <p class="insight-text">
+                  Great communication isn't about perfection — it's about <strong>engagement</strong>. A confident communicator
+                  looks and sounds like they mean what they're saying. They connect with their audience through three channels:
+                </p>
+                <ul class="insight-list">
+                  <li><strong>Visual</strong> — body language, gestures, facial expression (55% of impact)</li>
+                  <li><strong>Vocal</strong> — tone, pace, inflection (38%)</li>
+                  <li><strong>Verbal</strong> — the actual words used (only 7%)</li>
+                </ul>
+                <div class="callout">
+                  "A good speaker doesn't just deliver information — they touch you, move you to act. They're connected to themselves and to those they're speaking to."
+                </div>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">What holds us back?</div>
+                <p class="insight-text">Fear of public speaking is deeply wired into us — neuroscientists link it to the same instinct hunters used to zero in on prey: intense vulnerability. The most common blockers are:</p>
+                <ul class="insight-list">
+                  <li>High expectations — the toxic pressure to be perfect</li>
+                  <li>Poor preparation — not knowing the material well enough</li>
+                  <li>Fear of the audience — "What if they challenge me?"</li>
+                  <li>Bad past experiences that get replayed</li>
+                  <li><strong>Racing Brain Syndrome</strong> — when what you're saying and what you're thinking fall out of sync</li>
+                </ul>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">The Endless Loop Trap</div>
+                <p class="insight-text">
+                  Many people get stuck repeating the same ineffective communication patterns without realising it.
+                  One-way communication — broadcasting without listening — cuts us off from our audience.
+                  Before speaking, ask yourself: <em>"How do I want to be seen and perceived in this moment?"</em>
+                </p>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">Two-Way Communication</div>
+                <p class="insight-text">
+                  The antidote is <strong>two-way delivery</strong> — one clear thought at a time. This slows down your racing brain,
+                  keeps you in the present, and lets you read whether your audience is actually following you.
+                </p>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">The Breath Reset</div>
+                <p class="insight-text">
+                  Most people hold their breath when nervous — which amplifies tension. The course introduces <strong>Ujjayi breathing</strong>
+                  as a tool to activate the vagus nerve and calm the autonomic nervous system:
+                </p>
+                <ul class="insight-list">
+                  <li>Pull belly in and exhale slowly through the nose</li>
+                  <li>Inhale and let the belly relax outward</li>
+                  <li>Keep the chest still — breathe from the diaphragm</li>
+                </ul>
+                <p class="insight-text" style="margin-top:0.5rem;">We stop breathing when we lose our place, forget what to say, or when someone asks a hard question. This technique is the reset button.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 2 -->
+          <div class="note-chapter">
+            <button class="chapter-toggle" onclick="toggleChapter(this)">
+              <span class="chapter-num">02</span>
+              <span class="chapter-title-text">Honing Your Message</span>
+              <span class="chapter-arrow">▶</span>
+            </button>
+            <div class="chapter-content">
+              <div class="insight-block">
+                <div class="insight-heading">Know exactly what you want to say</div>
+                <p class="insight-text">Every great communicator starts with a clear message: <strong>simple words, short sentences</strong>. Define your outcome first — are you persuading, introducing, or informing?</p>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">The Index Card Framework</div>
+                <p class="insight-text">Use index cards (physical or mental) to structure any talk:</p>
+                <ul class="insight-list">
+                  <li><strong>Purpose</strong> — your direction and focus</li>
+                  <li><strong>Main Idea</strong> — the 1–3 points you need them to walk away with</li>
+                  <li><strong>Details</strong> — stats, anecdotes, word pictures, visual aids that bring the idea to life</li>
+                  <li><strong>Introduction</strong> — a strong hook that gives the audience a reason to listen</li>
+                  <li><strong>Conclusion</strong> — reinforce the core message</li>
+                  <li><strong>Call to Action</strong> — tell them exactly what to do next</li>
+                </ul>
+                <div class="callout">
+                  "If you don't know what you want to say before you start speaking, your audience won't know what you said when you finish."
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 3 -->
+          <div class="note-chapter">
+            <button class="chapter-toggle" onclick="toggleChapter(this)">
+              <span class="chapter-num">03</span>
+              <span class="chapter-title-text">Say It Like You Mean It</span>
+              <span class="chapter-arrow">▶</span>
+            </button>
+            <div class="chapter-content">
+              <div class="insight-block">
+                <div class="insight-heading">Choose words with intention</div>
+                <ul class="insight-list">
+                  <li>Choose each word deliberately — vague language signals unpreparedness</li>
+                  <li>Make every sentence sound different — monotony kills attention</li>
+                  <li>Enunciate fully — half-swallowed words erode credibility</li>
+                </ul>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">Two habits that undermine authority</div>
+                <ul class="insight-list">
+                  <li><strong>Uptalk</strong> — ending sentences on a rising inflection makes you sound uncertain, even when you're not</li>
+                  <li><strong>Hedging</strong> — phrases like "sort of", "kind of", "it seems like" water down your message</li>
+                </ul>
+                <p class="insight-text" style="margin-top:0.5rem;">Change your inflection or tone intentionally when shifting topics — it signals a transition and keeps listeners engaged.</p>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">The Power of the Pause</div>
+                <p class="insight-text">Silence is not weakness — it's one of the most powerful tools in a speaker's toolkit. Pause:</p>
+                <ul class="insight-list">
+                  <li>Before and after each key sentence</li>
+                  <li>After something important — let it land</li>
+                  <li>After a rhetorical question</li>
+                  <li>After a call to action</li>
+                </ul>
+                <div class="callout">Pausing shows confidence. It gives your audience time to think, and it gives you time to breathe and reconnect.</div>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">Slow Down to Gain Control</div>
+                <p class="insight-text">Slightly stretch the vowels in each word. It sounds subtle, but it naturally paces your speech and helps you control what comes out next.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 4 -->
+          <div class="note-chapter">
+            <button class="chapter-toggle" onclick="toggleChapter(this)">
+              <span class="chapter-num">04</span>
+              <span class="chapter-title-text">Look Like You Mean It</span>
+              <span class="chapter-arrow">▶</span>
+            </button>
+            <div class="chapter-content">
+              <div class="insight-block">
+                <div class="insight-heading">Eyes that connect</div>
+                <p class="insight-text">You can tell exactly how connected a speaker is to their audience just by watching their eyes. Rules for strong eye contact:</p>
+                <ul class="insight-list">
+                  <li>Deliver one thought to one face at a time — don't scan</li>
+                  <li>Hold eye contact on powerful lines — it amplifies impact</li>
+                  <li>Hold eye contact in silence — it reads as confidence</li>
+                </ul>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">Hands: use them, don't suppress them</div>
+                <p class="insight-text">Contrary to what many people think, talking with your hands is a feature, not a bug. Research shows it:</p>
+                <ul class="insight-list">
+                  <li>Helps you think more clearly as you speak</li>
+                  <li>Makes you more visually interesting to watch</li>
+                  <li>Adds variety to your voice</li>
+                  <li>Projects leadership presence</li>
+                  <li>Keeps you calm</li>
+                </ul>
+                <p class="insight-text" style="margin-top:0.5rem;">The issue isn't using hands — it's when gestures are repetitive, disconnected from the message, or excessively large.</p>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">Face as message</div>
+                <p class="insight-text">Visualise what you're talking about. Let your eyes reflect the mood and tone. Your face should convey <strong>confidence</strong>, <strong>conviction</strong>, and <strong>connection</strong> — the 3 Cs of presence.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 5 -->
+          <div class="note-chapter">
+            <button class="chapter-toggle" onclick="toggleChapter(this)">
+              <span class="chapter-num">05</span>
+              <span class="chapter-title-text">Confronting Anxiety</span>
+              <span class="chapter-arrow">▶</span>
+            </button>
+            <div class="chapter-content">
+              <div class="insight-block">
+                <div class="insight-heading">Body Language Leakage</div>
+                <p class="insight-text">Anxiety doesn't stay hidden — it leaks. Common "tells" that signal nervousness to an audience:</p>
+                <ul class="insight-list">
+                  <li>The nervous swallow</li>
+                  <li>Pursed or tight lips</li>
+                  <li>Excessive fidgeting or pacing</li>
+                  <li>Rapid, involuntary blinking</li>
+                </ul>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">Take the pressure off</div>
+                <p class="insight-text">
+                  Nervousness is universal — even the best speakers feel it. The shift happens when you stop trying to be a <em>perfect speaker</em> and start focusing on being a <em>present communicator</em>.
+                  Don't overthink your own performance. The audience isn't your judge — they're your conversation partner.
+                </p>
+                <div class="callout">"Fake it till you make it" has real neurological backing: adopting confident posture and expression can trigger genuine confidence from the outside in.</div>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">The Pre-Speech Ritual</div>
+                <p class="insight-text">Develop a consistent ritual before any important communication:</p>
+                <ul class="insight-list">
+                  <li>Take 3 deep Ujjayi breaths</li>
+                  <li>Roll your shoulders back — open your chest</li>
+                  <li>Smell the room (it grounds you in the present moment)</li>
+                  <li>Remind yourself: "They want me to succeed"</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 6 -->
+          <div class="note-chapter">
+            <button class="chapter-toggle" onclick="toggleChapter(this)">
+              <span class="chapter-num">06</span>
+              <span class="chapter-title-text">Putting It All Together</span>
+              <span class="chapter-arrow">▶</span>
+            </button>
+            <div class="chapter-content">
+              <div class="insight-block">
+                <div class="insight-heading">The Confident Communicator's Checklist</div>
+                <p class="insight-text">Before any important conversation, presentation, or meeting:</p>
+                <ul class="insight-list">
+                  <li><strong>Prepare</strong> — Know your Index Card (Purpose, Main Idea, Details, Intro, Conclusion, CTA)</li>
+                  <li><strong>Breathe</strong> — 3 Ujjayi breaths before you begin</li>
+                  <li><strong>Connect</strong> — One thought to one face at a time</li>
+                  <li><strong>Pause</strong> — After every key point, let it land</li>
+                  <li><strong>Present</strong> — Be there, not in your head worrying about perfection</li>
+                </ul>
+              </div>
+
+              <div class="insight-block">
+                <div class="insight-heading">The 3 Cs of Presence</div>
+                <ul class="insight-list">
+                  <li><strong>Confidence</strong> — Believing in what you say</li>
+                  <li><strong>Conviction</strong> — Saying it like you mean it</li>
+                  <li><strong>Connection</strong> — Reaching the person across from you</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="key-takeaway">
+          <div class="key-takeaway-label">💡 My Key Takeaway</div>
+          <p>Most of us have been taught to suppress nervous energy — hold still, don't gesture, don't show emotion. This course flips that completely. Real confidence is about <strong>presence</strong>, not perfection.</p>
+          <p>The most immediately applicable lesson for me: <strong>two-way delivery and the pause</strong>. In my tech trainings and presentations, I've seen how racing through content disconnects the audience. Slowing down, delivering one thought at a time, and pausing after key points is something I'm actively building into how I communicate.</p>
+          <p style="margin-top: 0.75rem;">I've started using the Index Card framework before every training session at Impact Digital Academy. The result? Students are more engaged, ask better questions, and retain more information. Communication isn't about performing — it's about connecting.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="index.html#notes" class="back-link" style="margin: 0 auto;">← Back to Personal Notes</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Emmanuel Ifeoluwa Ademuyiwa · Personal Notes · Communicating with Confidence</p>
+  </footer>
+
+  <script>
+    function toggleChapter(btn) {
+      const content = btn.nextElementSibling;
+      const isOpen = content.classList.contains('open');
+      content.classList.toggle('open', !isOpen);
+      btn.classList.toggle('open', !isOpen);
+    }
+  </script>
+</body>
+
+</html>

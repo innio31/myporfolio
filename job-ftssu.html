@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IT Admin & Security Tech Officer — FTSSU | Emmanuel Ademuyiwa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --blue-dark: #0f172a;
+      --blue-mid: #1e3a8a;
+      --blue: #1d4ed8;
+      --blue-light: #3b82f6;
+      --blue-glow: #60a5fa;
+      --blue-pale: #dbeafe;
+      --accent: #f59e0b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-bg: rgba(30, 58, 138, 0.12);
+      --card-border: rgba(59, 130, 246, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--blue-dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+      opacity: 0.2;
+    }
+
+    .orb1 {
+      width: 500px;
+      height: 500px;
+      background: #7c3aed;
+      top: -150px;
+      right: -150px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      color: var(--blue-glow);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      border: 1px solid var(--card-border);
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      border-color: var(--blue-light);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .role-meta {
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .company-badge {
+      background: rgba(96, 165, 250, 0.15);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      color: var(--blue-glow);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      transition: all 0.25s;
+    }
+
+    .stat-box:hover {
+      border-color: var(--blue-light);
+      transform: translateY(-3px);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--blue-glow);
+      display: block;
+      font-family: 'DM Serif Display', serif;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: var(--blue-glow);
+      margin: 2rem 0 1rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: #fff;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .detail-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin: 1.5rem 0;
+    }
+
+    ul,
+    .insight-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--blue-light);
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tech-tag {
+      background: rgba(29, 78, 216, 0.2);
+      border: 1px solid var(--card-border);
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--blue-pale);
+    }
+
+    .callout {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 3px solid var(--accent);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 12px 12px 0;
+      margin: 1.5rem 0;
+    }
+
+    .callout-quote {
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .key-achievement {
+      background: linear-gradient(135deg, rgba(29, 78, 216, 0.1), rgba(29, 78, 216, 0.02));
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin: 0.75rem 0;
+      border-left: 2px solid var(--blue);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-orb orb1"></div>
+
+  <div class="container">
+    <a href="index.html#experience" class="back-link">← Back to Portfolio</a>
+
+    <h1>IT Admin & Security Tech Officer</h1>
+    <div class="role-meta">
+      <span>Faith Tabernacle Security Service Unit · Nigeria</span>
+      <span class="company-badge">Dec 2024 – Present · Volunteer</span>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="stat-number">120+</span>
+        <span class="stat-label">Active Personnel</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">70%</span>
+        <span class="stat-label">Faster Attendance</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">30%</span>
+        <span class="stat-label">Patrol Reduction</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">40%</span>
+        <span class="stat-label">Faster Response</span>
+      </div>
+    </div>
+
+    <!-- Role Overview -->
+    <div class="detail-card">
+      <h2 style="margin-top: 0;">📋 Role Overview</h2>
+      <p>As IT Administrator and Security Technology Officer for the Faith Tabernacle Security Service Unit, I volunteer my technical expertise to modernize the unit's security operations. I bridge the gap between traditional security practices and modern technology by implementing drone surveillance systems, developing web applications for personnel management, and creating data-driven solutions that enhance operational efficiency.</p>
+      <p style="margin-top: 0.75rem;">This is a voluntary role where I apply my skills to serve the community, demonstrating how technology can empower even volunteer-led security organizations.</p>
+    </div>
+
+    <!-- Key Responsibilities -->
+    <h2>🎯 Key Responsibilities</h2>
+    <ul>
+      <li><strong>Drone Operations & Surveillance:</strong> Pilot and maintain security drones for aerial surveillance, perimeter monitoring, and incident response coordination across the church premises.</li>
+      <li><strong>Progressive Web App Development:</strong> Design, build, and maintain the FTSSU PWA — a comprehensive member management system used by 120+ active security personnel.</li>
+      <li><strong>Database Administration:</strong> Manage the unit's member database including personal records, training history, deployment logs, and equipment tracking.</li>
+      <li><strong>QR Attendance System:</strong> Implement and maintain QR code-based attendance tracking that replaced manual roll-call systems.</li>
+      <li><strong>Technical Training:</strong> Provide training and ongoing technical support to unit members on using the PWA, digital tools, and basic troubleshooting.</li>
+      <li><strong>Incident Reporting System:</strong> Develop and maintain real-time incident reporting features that enable faster emergency response coordination.</li>
+    </ul>
+
+    <!-- Technology Initiatives -->
+    <h2>🚁 Technology Initiatives</h2>
+    <div class="two-columns">
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">🛸 Drone Surveillance Program</h3>
+        <p>Introduced and operationalized drone technology for security monitoring and incident response.</p>
+        <div class="key-achievement">
+          <strong>Impact:</strong> Reduced manual patrol hours by 30% while improving coverage of large outdoor areas.
+        </div>
+        <div class="tech-stack">
+          <span class="tech-tag">DJI Drone SDK</span>
+          <span class="tech-tag">Aerial Mapping</span>
+          <span class="tech-tag">Real-time Video Feed</span>
+        </div>
+      </div>
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">📱 FTSSU Progressive Web App</h3>
+        <p>A comprehensive personnel management platform accessible from any device with or without internet.</p>
+        <div class="key-achievement">
+          <strong>Impact:</strong> Reduced attendance check-in time from 15 minutes to under 2 minutes.
+        </div>
+        <div class="tech-stack">
+          <span class="tech-tag">React PWA</span>
+          <span class="tech-tag">Firebase Auth</span>
+          <span class="tech-tag">Firestore DB</span>
+          <span class="tech-tag">Netlify</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FTSSU PWA Features -->
+    <h2>📱 FTSSU PWA — Key Features</h2>
+    <div class="detail-card">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem;">
+        <div>✅ QR Code Check-in/Check-out</div>
+        <div>✅ Real-time Attendance Tracking</div>
+        <div>✅ Personnel Directory with Roles</div>
+        <div>✅ Incident Reporting System</div>
+        <div>✅ Push Notifications for Drills</div>
+        <div>✅ Role-based Dashboards</div>
+        <div>✅ Offline Mode Support</div>
+        <div>✅ Training Schedule Management</div>
+        <div>✅ Equipment Check-out Logs</div>
+        <div>✅ Weekly Activity Reports</div>
+      </div>
+    </div>
+
+    <!-- Key Achievements -->
+    <h2>🏆 Key Achievements</h2>
+    <div class="detail-card">
+      <ul>
+        <li><strong>First-of-its-kind PWA:</strong> Developed the first progressive web app for any security unit in the region, setting a new standard for volunteer security technology adoption.</li>
+        <li><strong>Zero Cost Implementation:</strong> Built and deployed the entire system using free tiers of Firebase and Netlify, demonstrating cost-effective technology solutions for volunteer organizations.</li>
+        <li><strong>100% Personnel Onboarding:</strong> Successfully onboarded all 120+ active personnel onto the digital attendance system within 4 weeks.</li>
+        <li><strong>Improved Response Time:</strong> Real-time incident reporting reduced emergency response coordination time by 40%.</li>
+        <li><strong>Drone Training Program:</strong> Trained 8 unit members as certified drone operators, creating sustainable knowledge transfer.</li>
+      </ul>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="callout">
+      <div class="callout-quote">"Before Emmanuel introduced the QR attendance system, we spent 15 minutes each morning just calling names. Now we scan, confirm, and we're ready for briefing in under 2 minutes. The PWA has completely transformed how we operate."</div>
+      <div style="color: var(--accent); font-size: 0.85rem;">— Unit Commander, Faith Tabernacle Security Service Unit</div>
+    </div>
+
+    <!-- Daily Operations Impact -->
+    <h2>📈 Operational Impact</h2>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="stat-number">15→2</span>
+        <span class="stat-label">Minutes Saved Daily</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Attendance Accuracy</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">System Availability</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">8</span>
+        <span class="stat-label">Trained Drone Operators</span>
+      </div>
+    </div>
+
+    <!-- Skills Developed -->
+    <h2>🛠️ Skills & Competencies Developed</h2>
+    <div class="two-columns">
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">Technical</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">PWA Development</span>
+          <span class="tech-tag">Firebase Suite</span>
+          <span class="tech-tag">Drone Operations</span>
+          <span class="tech-tag">QR Code Systems</span>
+          <span class="tech-tag">Real-time Databases</span>
+          <span class="tech-tag">Offline-First Architecture</span>
+        </div>
+      </div>
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">Operational</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">Security Protocols</span>
+          <span class="tech-tag">Emergency Response</span>
+          <span class="tech-tag">Personnel Management</span>
+          <span class="tech-tag">Training Delivery</span>
+          <span class="tech-tag">Process Automation</span>
+          <span class="tech-tag">Data Privacy Compliance</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weekly Routine -->
+    <h2>📅 Weekly Operational Routine</h2>
+    <div class="detail-card">
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <div><strong>Monday:</strong> System health checks, database backups, drone equipment inspection</div>
+        <div><strong>Wednesday:</strong> Personnel attendance audit, incident report review, PWA updates</div>
+        <div><strong>Friday:</strong> Drone surveillance flight coordination, weekly report generation</div>
+        <div><strong>Saturday:</strong> Training sessions for new personnel on PWA usage</div>
+        <div><strong>Sunday:</strong> On-site support during services, real-time attendance monitoring</div>
+      </div>
+    </div>
+
+    <!-- Looking Ahead -->
+    <h2>🔭 Current & Future Initiatives</h2>
+    <div class="detail-card">
+      <p>I am currently working on several enhancements to the FTSSU technology ecosystem:</p>
+      <ul>
+        <li><strong>AI-powered Incident Prediction:</strong> Exploring machine learning models to predict high-risk areas based on historical incident data.</li>
+        <li><strong>Live Drone Feed Integration:</strong> Adding real-time drone video streaming to the PWA for remote command center monitoring.</li>
+        <li><strong>Automated Shift Scheduling:</strong> Building an intelligent scheduling system that optimizes personnel deployment based on availability and risk patterns.</li>
+        <li><strong>Expansion to Regional Units:</strong> Adapting the PWA for deployment across 3 additional security units in the region.</li>
+      </ul>
+      <div class="tech-stack" style="margin-top: 1rem;">
+        <span class="tech-tag">Machine Learning</span>
+        <span class="tech-tag">WebRTC</span>
+        <span class="tech-tag">TensorFlow.js</span>
+        <span class="tech-tag">Cloud Functions</span>
+      </div>
+    </div>
+
+    <!-- Service Recognition -->
+    <div class="callout" style="background: rgba(96, 165, 250, 0.05); border-left-color: var(--blue-glow);">
+      <div class="callout-quote">"This role represents my commitment to using technology for community service. The skills I've developed here — from drone operations to real-time systems — have also strengthened my professional capabilities as a software developer and IT administrator."</div>
+      <div style="color: var(--blue-glow); font-size: 0.85rem; margin-top: 0.5rem;">— Emmanuel Ademuyiwa</div>
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="index.html#experience" class="back-link" style="margin: 0 auto;">← Back to Work Experience</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Emmanuel Ifeoluwa Ademuyiwa · IT Admin & Security Tech Officer at Faith Tabernacle Security Service Unit · Volunteer</p>
+  </footer>
+</body>
+
+</html>

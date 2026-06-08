@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales & Data Manager — Lord's Mint | Emmanuel Ademuyiwa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --blue-dark: #0f172a;
+      --blue-mid: #1e3a8a;
+      --blue: #1d4ed8;
+      --blue-light: #3b82f6;
+      --blue-glow: #60a5fa;
+      --blue-pale: #dbeafe;
+      --accent: #f59e0b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-bg: rgba(30, 58, 138, 0.12);
+      --card-border: rgba(59, 130, 246, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--blue-dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+      opacity: 0.2;
+    }
+
+    .orb1 {
+      width: 500px;
+      height: 500px;
+      background: #f59e0b;
+      top: -150px;
+      right: -150px;
+      opacity: 0.1;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      color: var(--blue-glow);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      border: 1px solid var(--card-border);
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      border-color: var(--blue-light);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .role-meta {
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .company-badge {
+      background: rgba(96, 165, 250, 0.15);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      color: var(--blue-glow);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      transition: all 0.25s;
+    }
+
+    .stat-box:hover {
+      border-color: var(--blue-light);
+      transform: translateY(-3px);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--blue-glow);
+      display: block;
+      font-family: 'DM Serif Display', serif;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: var(--blue-glow);
+      margin: 2rem 0 1rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: #fff;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .detail-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin: 1.5rem 0;
+    }
+
+    ul,
+    .insight-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--blue-light);
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tech-tag {
+      background: rgba(29, 78, 216, 0.2);
+      border: 1px solid var(--card-border);
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--blue-pale);
+    }
+
+    .callout {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 3px solid var(--accent);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 12px 12px 0;
+      margin: 1.5rem 0;
+    }
+
+    .callout-quote {
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .key-achievement {
+      background: linear-gradient(135deg, rgba(29, 78, 216, 0.1), rgba(29, 78, 216, 0.02));
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin: 0.75rem 0;
+      border-left: 2px solid var(--blue);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .timeline-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      min-width: 70px;
+    }
+
+    .timeline-desc {
+      color: var(--text-muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-orb orb1"></div>
+
+  <div class="container">
+    <a href="index.html#experience" class="back-link">← Back to Portfolio</a>
+
+    <h1>Sales & Data Manager</h1>
+    <div class="role-meta">
+      <span>Lord's Mint · Itori, Ogun State</span>
+      <span class="company-badge">Nov 2016 – Apr 2019</span>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="stat-number">99.5%</span>
+        <span class="stat-label">Data Accuracy</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">15+</span>
+        <span class="stat-label">Hours Saved Monthly</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">On-time Reporting</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">3</span>
+        <span class="stat-label">Process Automations</span>
+      </div>
+    </div>
+
+    <!-- Role Overview -->
+    <div class="detail-card">
+      <h2 style="margin-top: 0;">📋 Role Overview</h2>
+      <p>At Lord's Mint, I managed sales operations and data systems for a growing manufacturing company. This foundational role taught me the critical relationship between accurate data and business success. I was responsible for maintaining sales pipelines, generating reports for management, and implementing systems that improved operational efficiency.</p>
+      <p style="margin-top: 0.75rem;">This experience was instrumental in shaping my analytical mindset and understanding of how technology can transform business operations — lessons I continue to apply in my software development work today.</p>
+    </div>
+
+    <!-- Key Responsibilities -->
+    <h2>🎯 Key Responsibilities</h2>
+    <ul>
+      <li><strong>Sales Data Management:</strong> Maintained accurate records of all sales transactions, customer information, and inventory levels using Excel and manual ledger systems.</li>
+      <li><strong>Reporting & Analytics:</strong> Generated daily, weekly, and monthly sales reports for management review, identifying trends and areas for improvement.</li>
+      <li><strong>Process Improvement:</strong> Streamlined data entry workflows by creating standardized templates and validation rules that reduced errors and processing time.</li>
+      <li><strong>Inventory Coordination:</strong> Collaborated with the sales team to track inventory levels and flag reorder points, reducing stockout incidents.</li>
+      <li><strong>Customer Record Management:</strong> Maintained customer databases and purchase histories to support relationship management and targeted sales efforts.</li>
+      <li><strong>Team Collaboration:</strong> Worked closely with the sales team to ensure data integrity and resolve discrepancies in transaction records.</li>
+    </ul>
+
+    <!-- Key Initiatives -->
+    <h2>📊 Key Initiatives & Achievements</h2>
+    <div class="two-columns">
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">📈 Excel Automation Project</h3>
+        <p>Developed automated Excel templates with built-in formulas, validation rules, and pivot tables that transformed manual reporting.</p>
+        <div class="key-achievement">
+          <strong>Impact:</strong> Reduced monthly reporting time by 15+ hours and eliminated calculation errors.
+        </div>
+        <div class="tech-stack">
+          <span class="tech-tag">Excel Advanced Formulas</span>
+          <span class="tech-tag">Pivot Tables</span>
+          <span class="tech-tag">Data Validation</span>
+          <span class="tech-tag">Conditional Formatting</span>
+        </div>
+      </div>
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">📋 Data Quality Initiative</h3>
+        <p>Implemented data entry standards and verification processes to improve record accuracy across all sales channels.</p>
+        <div class="key-achievement">
+          <strong>Impact:</strong> Improved data accuracy from 92% to 99.5% within 3 months.
+        </div>
+        <div class="tech-stack">
+          <span class="tech-tag">Data Auditing</span>
+          <span class="tech-tag">Quality Control</span>
+          <span class="tech-tag">Standard Operating Procedures</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workflow Improvements -->
+    <h2>⚙️ Process Improvements Implemented</h2>
+    <div class="detail-card">
+      <div class="timeline-item">
+        <div class="timeline-year">Month 1</div>
+        <div class="timeline-desc">Standardized sales entry templates across all staff, reducing data entry time by 25%.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Month 2</div>
+        <div class="timeline-desc">Introduced daily reconciliation checks, catching and correcting errors within 24 hours.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Month 3</div>
+        <div class="timeline-desc">Created automated weekly sales dashboard for management using Excel pivot tables and charts.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Month 6</div>
+        <div class="timeline-desc">Implemented inventory tracking system that reduced stock discrepancies by 60%.</div>
+      </div>
+    </div>
+
+    <!-- Key Achievements -->
+    <h2>🏆 Key Achievements</h2>
+    <div class="detail-card">
+      <ul>
+        <li><strong>15+ Hours Saved Monthly:</strong> Automated reporting processes that previously consumed 20+ hours were reduced to under 5 hours per month.</li>
+        <li><strong>99.5% Data Accuracy:</strong> Implemented validation rules and audit processes that raised data accuracy from 92% to near-perfect levels.</li>
+        <li><strong>Zero Late Reports:</strong> Achieved 100% on-time delivery of all management reports throughout tenure.</li>
+        <li><strong>Stock Discrepancy Reduction:</strong> Inventory tracking improvements reduced stock discrepancies by 60% within 6 months.</li>
+        <li><strong>Department-wide Adoption:</strong> Standardized templates and processes became the official standard for the entire sales department.</li>
+      </ul>
+    </div>
+
+    <!-- Daily Operations -->
+    <h2>📅 Daily Operational Routine</h2>
+    <div class="detail-card">
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <div><strong>Morning:</strong> Review previous day's sales entries, verify against cash records, resolve any discrepancies</div>
+        <div><strong>Mid-day:</strong> Process new sales entries, update inventory records, coordinate with sales team</div>
+        <div><strong>Afternoon:</strong> Generate mid-day reports for management, audit recent entries for accuracy</div>
+        <div><strong>End of Day:</strong> Reconcile all transactions, prepare daily summary, backup data files</div>
+        <div><strong>Weekly:</strong> Compile weekly sales dashboard, review trends, present to management</div>
+        <div><strong>Monthly:</strong> Generate comprehensive monthly reports, perform full data audit, prepare inventory forecasts</div>
+      </div>
+    </div>
+
+    <!-- Skills Developed -->
+    <h2>🛠️ Skills & Competencies Developed</h2>
+    <div class="two-columns">
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">Technical</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">Advanced Excel</span>
+          <span class="tech-tag">Data Entry & Validation</span>
+          <span class="tech-tag">Inventory Management</span>
+          <span class="tech-tag">Reporting & Dashboards</span>
+          <span class="tech-tag">Manual Ledger Systems</span>
+        </div>
+      </div>
+      <div class="detail-card">
+        <h3 style="margin-top: 0;">Professional</h3>
+        <div class="tech-stack">
+          <span class="tech-tag">Sales Operations</span>
+          <span class="tech-tag">Process Optimization</span>
+          <span class="tech-tag">Attention to Detail</span>
+          <span class="tech-tag">Time Management</span>
+          <span class="tech-tag">Team Collaboration</span>
+          <span class="tech-tag">Problem Solving</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lessons Learned -->
+    <div class="callout">
+      <div class="callout-quote">"This role taught me that accurate data is the foundation of every business decision. The systems I built here — even with basic tools like Excel — showed me how technology can transform operations. These lessons directly influence how I approach software development today."</div>
+      <div style="color: var(--accent); font-size: 0.85rem; margin-top: 0.5rem;">— Emmanuel Ademuyiwa, reflecting on his early career experience</div>
+    </div>
+
+    <!-- Impact on Current Work -->
+    <h2>🔗 How This Experience Shapes My Work Today</h2>
+    <div class="detail-card">
+      <p>The skills and lessons from Lord's Mint continue to influence my approach to software development and IT management:</p>
+      <ul>
+        <li><strong>User-Friendly Design:</strong> Seeing how manual data entry led to errors taught me to build intuitive interfaces that prevent mistakes.</li>
+        <li><strong>Automation First:</strong> The 15+ hours saved through Excel automation showed me the value of building systems that reduce manual work.</li>
+        <li><strong>Data Integrity:</strong> My focus on data accuracy in sales now translates to building databases with proper validation and constraints.</li>
+        <li><strong>Reporting Clarity:</strong> Creating dashboards for management taught me to present complex data in clear, actionable formats.</li>
+        <li><strong>Process Documentation:</strong> Standardizing procedures helped me develop the discipline of documenting systems and workflows.</li>
+      </ul>
+    </div>
+
+    <!-- Recommendations -->
+    <h2>💡 What I Would Do Differently Today</h2>
+    <div class="detail-card">
+      <p>Looking back from my current perspective as a software developer, I recognize opportunities that were beyond my skills at the time but that I would implement today:</p>
+      <ul>
+        <li>Build a simple database application to replace manual Excel records</li>
+        <li>Implement barcode scanning for inventory tracking</li>
+        <li>Create automated email reports sent directly to management</li>
+        <li>Develop a customer loyalty tracking system</li>
+        <li>Add real-time inventory visibility for the sales team</li>
+      </ul>
+      <p style="margin-top: 1rem; color: var(--text);">It's rewarding to see how far I've come — from using Excel to now building full-scale business automation systems for retail shops at Impact Digital Academy.</p>
+    </div>
+
+    <!-- Recognition -->
+    <div class="callout" style="background: rgba(96, 165, 250, 0.05); border-left-color: var(--blue-glow);">
+      <div class="callout-quote">"Emmanuel was the most organized data manager we had. His reports were always accurate and delivered on time. He single-handedly transformed how we track our sales data."</div>
+      <div style="color: var(--blue-glow); font-size: 0.85rem; margin-top: 0.5rem;">— Mr Shodipo, Former Manager, Lord's Mint</div>
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="index.html#experience" class="back-link" style="margin: 0 auto;">← Back to Work Experience</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Emmanuel Ifeoluwa Ademuyiwa · Former Sales & Data Manager at Lord's Mint (2016–2019)</p>
+  </footer>
+</body>
+
+</html>
