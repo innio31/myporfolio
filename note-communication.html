@@ -459,7 +459,7 @@
             <div class="certificate-label">Official Certificate</div>
             <div class="certificate-image-wrapper">
               <img 
-                src="images/communication-certificate.png" 
+                src="images/communication-certificate.jpg" 
                 alt="Communicating with Confidence Certificate" 
                 class="certificate-image"
                 onerror="this.style.display='none'; this.parentElement.parentElement.querySelector('.certificate-fallback').style.display='flex';"
@@ -476,16 +476,16 @@
       </div>
 
       <div class="note-body">
-        <div class="note-chapters">
+        <div class="note-chapters" id="chaptersContainer">
 
           <!-- CHAPTER 1 -->
-          <div class="note-chapter">
-            <button class="chapter-toggle open" onclick="toggleChapter(this)">
+          <div class="note-chapter" data-chapter="1">
+            <button class="chapter-toggle" onclick="toggleChapter(this, 1)">
               <span class="chapter-num">01</span>
               <span class="chapter-title-text">Be a Better Communicator</span>
               <span class="chapter-arrow">▶</span>
             </button>
-            <div class="chapter-content open">
+            <div class="chapter-content">
               <div class="insight-block">
                 <div class="insight-heading">What makes a great speaker?</div>
                 <p class="insight-text">
@@ -548,8 +548,8 @@
           </div>
 
           <!-- CHAPTER 2 -->
-          <div class="note-chapter">
-            <button class="chapter-toggle" onclick="toggleChapter(this)">
+          <div class="note-chapter" data-chapter="2">
+            <button class="chapter-toggle" onclick="toggleChapter(this, 2)">
               <span class="chapter-num">02</span>
               <span class="chapter-title-text">Honing Your Message</span>
               <span class="chapter-arrow">▶</span>
@@ -579,8 +579,8 @@
           </div>
 
           <!-- CHAPTER 3 -->
-          <div class="note-chapter">
-            <button class="chapter-toggle" onclick="toggleChapter(this)">
+          <div class="note-chapter" data-chapter="3">
+            <button class="chapter-toggle" onclick="toggleChapter(this, 3)">
               <span class="chapter-num">03</span>
               <span class="chapter-title-text">Say It Like You Mean It</span>
               <span class="chapter-arrow">▶</span>
@@ -624,8 +624,8 @@
           </div>
 
           <!-- CHAPTER 4 -->
-          <div class="note-chapter">
-            <button class="chapter-toggle" onclick="toggleChapter(this)">
+          <div class="note-chapter" data-chapter="4">
+            <button class="chapter-toggle" onclick="toggleChapter(this, 4)">
               <span class="chapter-num">04</span>
               <span class="chapter-title-text">Look Like You Mean It</span>
               <span class="chapter-arrow">▶</span>
@@ -662,8 +662,8 @@
           </div>
 
           <!-- CHAPTER 5 -->
-          <div class="note-chapter">
-            <button class="chapter-toggle" onclick="toggleChapter(this)">
+          <div class="note-chapter" data-chapter="5">
+            <button class="chapter-toggle" onclick="toggleChapter(this, 5)">
               <span class="chapter-num">05</span>
               <span class="chapter-title-text">Confronting Anxiety</span>
               <span class="chapter-arrow">▶</span>
@@ -703,8 +703,8 @@
           </div>
 
           <!-- CHAPTER 6 -->
-          <div class="note-chapter">
-            <button class="chapter-toggle" onclick="toggleChapter(this)">
+          <div class="note-chapter" data-chapter="6">
+            <button class="chapter-toggle" onclick="toggleChapter(this, 6)">
               <span class="chapter-num">06</span>
               <span class="chapter-title-text">Putting It All Together</span>
               <span class="chapter-arrow">▶</span>
@@ -754,11 +754,38 @@
   </footer>
 
   <script>
-    function toggleChapter(btn) {
-      const content = btn.nextElementSibling;
-      const isOpen = content.classList.contains('open');
-      content.classList.toggle('open', !isOpen);
-      btn.classList.toggle('open', !isOpen);
+    // Track currently open chapter (default: none, all closed)
+    let currentlyOpenChapter = null;
+
+    function toggleChapter(button, chapterNumber) {
+      // Get the parent chapter container
+      const chapterDiv = button.closest('.note-chapter');
+      const contentDiv = chapterDiv.querySelector('.chapter-content');
+      const isCurrentlyOpen = contentDiv.classList.contains('open');
+      
+      // If there's a currently open chapter and it's not this one, close it
+      if (currentlyOpenChapter !== null && currentlyOpenChapter !== chapterNumber) {
+        const previousChapterDiv = document.querySelector(`.note-chapter[data-chapter="${currentlyOpenChapter}"]`);
+        if (previousChapterDiv) {
+          const previousContent = previousChapterDiv.querySelector('.chapter-content');
+          const previousButton = previousChapterDiv.querySelector('.chapter-toggle');
+          previousContent.classList.remove('open');
+          previousButton.classList.remove('open');
+        }
+      }
+      
+      // Toggle the clicked chapter
+      if (isCurrentlyOpen) {
+        // Close it
+        contentDiv.classList.remove('open');
+        button.classList.remove('open');
+        currentlyOpenChapter = null;
+      } else {
+        // Open it
+        contentDiv.classList.add('open');
+        button.classList.add('open');
+        currentlyOpenChapter = chapterNumber;
+      }
     }
   </script>
 </body>
